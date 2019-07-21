@@ -1,0 +1,97 @@
+<!DOCnation html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>nations</title>
+</head>
+<style>
+
+    footer {
+        text-align: right;
+    }
+
+    #categories {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #categories td, #categories th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #categories tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #categories tr:hover {
+        background-color: #1ddd10;
+    }
+
+    #categories th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #0217af;
+        color: white;
+    }
+
+    #categories th {
+        text-align: center;
+    }
+
+
+    button {
+        width: 150px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    button:hover {
+        background-color: darkorange;
+    }
+
+
+</style>
+<body>
+
+<span>
+    <a href="/create-nation">
+        <button>Tạo quốc gia</button>
+    </a>
+</span>
+
+<span>
+<a href="/cities">
+    <button>Quản lý thành phố</button>
+</a>
+</span>
+
+<h1>Quốc gia</h1>
+<table id="categories">
+    <tr>
+        <th>Tên</th>
+        <th>Tác vụ</th>
+    </tr>
+    <th:block th:each="nation : ${nations}">
+        <tr>
+            <td th:text="${nation.name}"></td>
+            <td style="text-align: center"><a th:href="@{/edit-nation/__${nation.id}__ }"><img
+                    src="https://i.imgur.com/0ZYLnTD.png" alt="Modify"></a>
+                <a th:href="@{/delete-nation/__${nation.id}__ }"><img src="https://i.imgur.com/O60ACJk.png"
+                                                                      alt="Delete"></a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<footer> &copy; 2019 Jason Nguyen</footer>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPEhtml>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xml:lang="vi">
+<head>
+    <meta http-equiv="Content-nation" content="text/html; charset=UTF-8">
+    <title>Cities List</title>
+</head>
+<style>
+
+    #nations {
+        text-align: left;
+        position: absolute;
+        top: 150px;
+    }
+
+    #nations input {
+        border-radius: 10px;
+    }
+
+    #search {
+        text-align: right;
+    }
+
+    #search input {
+        border-radius: 10px;
+    }
+
+    footer {
+        text-align: right;
+    }
+
+    body {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        color: white;
+        background: #040a11;
+    }
+
+    #cities {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #cities tr {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    }
+
+    #cities td, #cities th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    /*#cities tr:nth-child(even) {*/
+    /*    background-color: #f2f2f2;*/
+    /*}*/
+
+    /*#cities tr:hover {*/
+    /*    background-color: #0d11ff;*/
+    /*}*/
+
+    #cities th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        /*background-color: #0217af;*/
+        color: white;
+    }
+
+    button {
+        width: 150px;
+        background-color: #0d11ff;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    button:hover {
+        background-color: darkorange;
+    }
+
+    #cities th {
+        text-align: center;
+        -webkit-animation: glow 1s ease-in-out infinite alternate;
+        -moz-animation: glow 1s ease-in-out infinite alternate;
+        animation: glow 1s ease-in-out infinite alternate;
+        color: white;
+    }
+
+    @-webkit-keyframes glow {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+        }
+
+        to {
+            text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+        }
+    }
+
+
+</style>
+<body>
+
+<span>
+    <a href="/create-city">
+        <button>Tạo thành phố</button>
+    </a>
+</span>
+&ensp;
+<span>
+<a href="/nations">
+    <button>Quản lý quốc gia</button>
+</a>
+</span>
+
+<h1>Cities manager v1.0</h1>
+
+<div id="search">
+    <form>
+        <label for="s"></label><input id="s" name="s" type="text"/>
+        <input type="submit" value="Tìm kiếm"/>
+    </form>
+    <br>
+</div>
+
+<div id="nations">
+    <form>
+        <select name="nation">
+            <option th:each="nation : ${nations}" th:value="${nation.id}" th:text="${nation.name}"></option>
+        </select>
+        <input type="submit" value="Xếp theo quốc gia">
+    </form>
+</div>
+
+<table id="cities">
+    <tr>
+        <th>Tên</th>
+        <th>Quốc gia</th>
+        <th>Diện tích</th>
+        <th>Dân số</th>
+        <th>GDP</th>
+        <th>Tác vụ</th>
+    </tr>
+    <th:block th:each="city : ${cities}">
+        <tr>
+            <td th:text="${city.name}"></td>
+            <td th:text="${city.nation.name}"></td>
+            <td th:text="${city.area}"></td>
+            <td th:text="${city.population}"></td>
+            <td th:text="${city.gdp}"></td>
+            <td style="text-align: center"><a th:href="@{/edit-city/__${city.id}__}"><img
+                    src="https://i.imgur.com/0ZYLnTD.png" alt="Modify"></a>
+                &emsp;&emsp;
+                <a th:href="@{/delete-city/__${city.id}__}"><img src="https://i.imgur.com/O60ACJk.png" alt="Delete"></a>
+                &emsp;&emsp;
+                <a th:href="@{/view-city/__${city.id}__}"><img src="https://i.imgur.com/FhiXEpa.png" alt="View"></a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/cities'(page=${cities.number - 1})}" th:if="${cities.hasPrevious()}">Trước</a>
+    <span th:text="${cities.number + 1}"></span>/<span th:text="${cities.totalPages}"></span>
+    <!--    <span th:each="page : ${cities.totalPages}"><a th:href="@{'/cities'(page=${cities.number})}" th:text="${cities.number + 1}"></a></span>-->
+    <a th:href="@{'/cities'(page=${cities.number + 1})}" th:if="${cities.hasNext()}">Sau</a>
+</div>
+<footer> &copy; 2019 Jason Nguyen</footer>
+</body>
+</html>
