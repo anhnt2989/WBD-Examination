@@ -95,6 +95,7 @@
             <tr>
                 <td>Tên :</td>
                 <td><input type="text" th:field="*{name}"/></td>
+                <td style="color: #e60073" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
             </tr>
             <tr>
                 <td>Quốc gia :</td>
@@ -106,14 +107,20 @@
             <tr>
                 <td>Diện tích :</td>
                 <td><input type="text" th:field="*{area}"/></td>
-            </tr>
+            <td style="color: #e60073" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></td>
+
+        </tr>
             <tr>
                 <td>Dân số :</td>
                 <td><input type="text" th:field="*{population}"/></td>
+                <td style="color: #e60073" th:if="${#fields.hasErrors('population')}" th:errors="*{population}"></td>
+
             </tr>
             <tr>
                 <td>GDP :</td>
                 <td><input type="text" th:field="*{gdp}"/></td>
+                <td style="color: #e60073" th:if="${#fields.hasErrors('gdp')}" th:errors="*{gdp}"></td>
+
             </tr>
             </tr>
             <tr>

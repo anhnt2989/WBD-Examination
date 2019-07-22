@@ -1,6 +1,8 @@
 package com.codegym.exam.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "nations")
@@ -10,6 +12,8 @@ public class Nation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
+    @Size(min = 4, max = 16)
     private String name;
 
     public Nation() {

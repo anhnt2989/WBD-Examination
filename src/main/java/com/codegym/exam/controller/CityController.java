@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,7 +56,10 @@ public class CityController {
     }
 
     @PostMapping("/create-city")
-    public ModelAndView create(@ModelAttribute("city") City city) {
+    public ModelAndView create(@Validated @ModelAttribute("city") City city, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            return new ModelAndView("/city/create");
+        }
         cityService.save(city);
         ModelAndView modelAndView = new ModelAndView("/city/create");
         modelAndView.addObject("city", new City());
@@ -71,7 +76,10 @@ public class CityController {
     }
 
     @PostMapping("/edit-city")
-    public ModelAndView edit(@ModelAttribute("city") City city) {
+    public ModelAndView edit(@Validated @ModelAttribute("city") City city, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            return new ModelAndView("/city/edit");
+        }
         cityService.save(city);
         ModelAndView modelAndView = new ModelAndView("/city/edit");
         modelAndView.addObject("message", "City was updated successfully!");
