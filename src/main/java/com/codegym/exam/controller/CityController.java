@@ -87,7 +87,7 @@ public class CityController {
     }
 
     @GetMapping("/delete-city/{id}")
-    public ModelAndView showDelete(@PathVariable("id") Long id) {
+    public ModelAndView showDeleteForm(@PathVariable("id") Long id) {
         City city = cityService.findById(id);
         ModelAndView modelAndView = new ModelAndView("/city/delete");
         modelAndView.addObject("city", city);
